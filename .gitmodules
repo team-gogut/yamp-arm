@@ -1,0 +1,3 @@
+[submodule "YAMP"]
+	path = YAMP
+	url = https://github.com/alesssia/YAMP.git
