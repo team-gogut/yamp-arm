@@ -1,0 +1,93 @@
+diff --git a/.gitmodules b/.gitmodules
+new file mode 100644
+index 0000000..be9e38e
+--- /dev/null
++++ b/.gitmodules
+@@ -0,0 +1,3 @@
++[submodule "third_party/simde"]
++	path = third_party/simde
++	url = https://github.com/nemequ/simde.git
+diff --git a/Makefile b/Makefile
+index 69ce0e9..f17726b 100644
+--- a/Makefile
++++ b/Makefile
+@@ -31,6 +31,10 @@ CC ?= $(GCC_PREFIX)/gcc$(GCC_SUFFIX)
+ CPP ?= $(GCC_PREFIX)/g++$(GCC_SUFFIX)
+ CXX ?= $(CPP)
+ CXXFLAGS += -std=c++98
++ifeq (aarch64,$(shell uname -m))
++	CXXFLAGS += -fopenmp-simd -DWITH_AARCH64
++	CPPFLAGS += -Ithird_party/simde
++endif
+ 
+ HEADERS := $(wildcard *.h)
+ BOWTIE_MM := 1
+@@ -174,6 +178,9 @@ endif
+ ifeq (amd64,$(shell uname -m))
+ 	BITS := 64
+ endif
++ifeq (aarch64,$(shell uname -m))
++	BITS := 64
++endif
+ # msys will always be 32 bit so look at the cpu arch instead.
+ ifneq (,$(findstring AMD64,$(PROCESSOR_ARCHITEW6432)))
+ 	ifeq (1,$(MINGW))
+@@ -185,9 +192,14 @@ ifeq (32,$(BITS))
+ endif
+ 
+ SSE_FLAG := -msse2
++M64_FLAG := -m64
++ifeq (aarch64,$(shell uname -m))
++	SSE_FLAG =
++	M64_FLAG =
++endif
+ 
+-DEBUG_FLAGS    := -O0 -g3 -m64 $(SSE_FLAG)
+-RELEASE_FLAGS  := -O3 -m64 $(SSE_FLAG) -funroll-loops -g3
++DEBUG_FLAGS    := -O0 -g3 $(M64_FLAG) $(SSE_FLAG)
++RELEASE_FLAGS  := -O3 $(M64_FLAG) $(SSE_FLAG) -funroll-loops -g3
+ NOASSERT_FLAGS := -DNDEBUG
+ FILE_FLAGS     := -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE
+ DEBUG_DEFS     = -DCOMPILER_OPTIONS="\"$(DEBUG_FLAGS) $(CXXFLAGS)\""
+diff --git a/aligner_sw.h b/aligner_sw.h
+index 7ce55af..9c29821 100644
+--- a/aligner_sw.h
++++ b/aligner_sw.h
+@@ -70,7 +70,11 @@
+ #include <iostream>
+ #include <limits>
+ #include "threading.h"
++#ifdef WITH_AARCH64
++#include "simde/x86/sse2.h"
++#else
+ #include <emmintrin.h>
++#endif
+ #include "aligner_sw_common.h"
+ #include "aligner_sw_nuc.h"
+ #include "ds.h"
+diff --git a/sse_util.h b/sse_util.h
+index 8edb1a8..c199855 100644
+--- a/sse_util.h
++++ b/sse_util.h
+@@ -24,7 +24,11 @@
+ #include "ds.h"
+ #include "limit.h"
+ #include <iostream>
++#ifdef WITH_AARCH64
++#include "simde/x86/sse2.h"
++#else
+ #include <emmintrin.h>
++#endif
+ 
+ class EList_m128i {
+ public:
+diff --git a/third_party/simde b/third_party/simde
+new file mode 160000
+index 0000000..422ed9c
+--- /dev/null
++++ b/third_party/simde
+@@ -0,0 +1 @@
++Subproject commit 422ed9cc55c88feaa0412e9f1511e10e60fd39ba
+-- 
+2.6.4
+
