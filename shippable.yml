@@ -1,0 +1,14 @@
+language: none
+matrix:
+  include:
+    - nodePool: shippable_shared_aarch64
+      env: GOGUT_INSTALL_DEPS=1
+build:
+  ci:
+    # Show environment.
+    - uname -a
+    - id
+    - pwd
+    # Test.
+    - make
+    - make test
