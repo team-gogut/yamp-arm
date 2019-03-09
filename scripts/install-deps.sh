@@ -52,7 +52,8 @@ pushd /usr/local/src
 
 # Nextflow
 # https://github.com/nextflow-io/nextflow/releases
-wget https://github.com/nextflow-io/nextflow/archive/v19.01.0.tar.gz -O nextflow.tar.gz
+wget -q https://github.com/nextflow-io/nextflow/archive/v19.01.0.tar.gz -O nextflow.tar.gz
+tar xzvf nextflow.tar.gz
 pushd nextflow-*
 ln -s $(pwd)/nextflow /usr/local/bin/nextflow
 popd
@@ -60,7 +61,8 @@ nextflow -version
 
 # bbmap: 37.10
 # https://sourceforge.net/projects/bbmap/
-wget https://sourceforge.net/projects/bbmap/files/BBMap_37.10.tar.gz/download -O bbmap.tar.gz
+wget -q https://sourceforge.net/projects/bbmap/files/BBMap_37.10.tar.gz/download -O bbmap.tar.gz
+tar xzvf bbmap.tar.gz
 pushd bbmap
 ln -s $(pwd)/bbmap.sh /usr/local/bin/bbmap.sh
 popd
@@ -69,7 +71,7 @@ bbmap.sh --version
 # fastqc: 0.11.5 used for x86_64 Dockerfile.
 # But the tagged archive is from 0.11.6 on GitHub.
 # http://www.bioinformatics.babraham.ac.uk/projects/fastqc/
-wget https://github.com/s-andrews/FastQC/archive/v0.11.6.tar.gz -O fastqc.tar.gz
+wget -q https://github.com/s-andrews/FastQC/archive/v0.11.6.tar.gz -O fastqc.tar.gz
 tar xzvf fastqc.tar.gz
 pushd FastQC-*
 # To fix an build error on JDK 10.
@@ -83,7 +85,7 @@ fastqc --version
 
 # bowtie2: 2.3.4.1
 BOWTIE2_VERSION="2.3.4.1"
-wget https://sourceforge.net/projects/bowtie-bio/files/bowtie2/${BOWTIE2_VERSION}/bowtie2-${BOWTIE2_VERSION}-source.zip/download -O bowtie2-${BOWTIE2_VERSION}.zip
+wget -q https://sourceforge.net/projects/bowtie-bio/files/bowtie2/${BOWTIE2_VERSION}/bowtie2-${BOWTIE2_VERSION}-source.zip/download -O bowtie2-${BOWTIE2_VERSION}.zip
 unzip bowtie2-${BOWTIE2_VERSION}.zip
 pushd bowtie2-${BOWTIE2_VERSION}
 # To build on ARM.
