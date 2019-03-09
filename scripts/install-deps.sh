@@ -23,6 +23,7 @@ apt-get update -qq && \
   ca-certificates \
   git \
   default-jre \
+  patch \
   python3 \
   software-properties-common \
   sudo \
