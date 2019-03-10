@@ -112,7 +112,10 @@ sed -i 's/_mm_/simde_mm_/g' aligner_*
 sed -i 's/_mm_/simde_mm_/g' sse_util*
 cat /build/patches/bowtie2-2.3.4.1-build-on-arm.patch | patch -p1
 
-make install
+make install \
+  CXXFLAGS="-Wno-deprecated-declarations -Wno-misleading-indentation -Wno-narrowing -Wno-unused-function -Wno-unused-result" \
+  POPCNT_CAPABILITY=0 \
+  NO_TBB=1
 popd
 bowtie2 --version
 
