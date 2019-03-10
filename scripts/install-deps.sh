@@ -118,9 +118,19 @@ cat /build/patches/bowtie2-2.3.4.1-build-on-arm.patch | patch -p1
 
 uname -m
 export CXXFLAGS="-Wno-deprecated-declarations -Wno-misleading-indentation -Wno-narrowing -Wno-unused-function -Wno-unused-result"
-make install \
+
+# A ping to prevent a timeout for the long command.
+while sleep 9m; do
+  echo "====[ $SECONDS seconds still running ]===="
+done &
+
+make install -j 4 \
   POPCNT_CAPABILITY=0 \
   NO_TBB=1
+
+# Stop the ping.
+kill %1
+
 popd
 bowtie2 --version
 
