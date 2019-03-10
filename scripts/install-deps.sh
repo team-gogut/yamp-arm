@@ -32,7 +32,8 @@ apt-get install -yq --no-install-suggests --no-install-recommends \
   sudo \
   unzip \
   vim \
-  wget
+  wget \
+  zlib1g-dev
 
 add-apt-repository universe
 # universe repository
@@ -42,9 +43,10 @@ add-apt-repository universe
 #   because the dependency bowtie2 is not installable on aarch64.
 # fastqc: can not be installed
 #   because the dependency libhtsjdk-java is not going to be installed on aarch64.
-apt-get update -qq && \
-  apt-get install -yq --no-install-suggests --no-install-recommends \
+apt-get update -qq
+apt-get install -yq --no-install-suggests --no-install-recommends \
   ant \
+  libtbb-dev \
   mercurial \
   python3-pip \
   qiime
@@ -89,9 +91,17 @@ fastqc --version
 
 # bowtie2: 2.3.4.1
 BOWTIE2_VERSION="2.3.4.1"
-wget -q https://sourceforge.net/projects/bowtie-bio/files/bowtie2/${BOWTIE2_VERSION}/bowtie2-${BOWTIE2_VERSION}-source.zip/download -O bowtie2-${BOWTIE2_VERSION}.zip
-unzip bowtie2-${BOWTIE2_VERSION}.zip
-pushd bowtie2-${BOWTIE2_VERSION}
+
+# Comment out the normal install process.
+# wget -q https://sourceforge.net/projects/bowtie-bio/files/bowtie2/${BOWTIE2_VERSION}/bowtie2-${BOWTIE2_VERSION}-source.zip/download -O bowtie2-${BOWTIE2_VERSION}.zip
+# unzip bowtie2-${BOWTIE2_VERSION}.zip
+# pushd bowtie2-${BOWTIE2_VERSION}
+
+# Download by git to do "git submodule" in below process.
+git clone https://github.com/BenLangmead/bowtie2.git
+pushd bowtie2
+git checkout "v${BOWTIE2_VERSION}"
+
 # To build on ARM.
 # https://github.com/BenLangmead/bowtie2/pull/216
 # https://gitlab.com/arm-hpc/packages/wikis/packages/bowtie2
@@ -100,6 +110,8 @@ sed -i 's/__m/simde__m/g' sse_util*
 sed -i 's/_mm_/simde_mm_/g' aligner_*
 sed -i 's/_mm_/simde_mm_/g' sse_util*
 cat /build/patches/bowtie2-2.3.4.1-build-on-arm.patch | patch -p1
+git submodule update --init --recursive
+
 make install
 popd
 bowtie2 --version
