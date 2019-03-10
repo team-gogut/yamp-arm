@@ -59,7 +59,7 @@ pushd /usr/local/src
 # Nextflow
 # https://github.com/nextflow-io/nextflow/releases
 wget -q https://github.com/nextflow-io/nextflow/archive/v19.01.0.tar.gz -O nextflow.tar.gz
-tar xzvf nextflow.tar.gz
+tar xzvf nextflow.tar.gz | head -1
 pushd nextflow-*
 ln -s $(pwd)/nextflow /usr/local/bin/nextflow
 popd
@@ -68,7 +68,7 @@ nextflow -version
 # bbmap: 37.10
 # https://sourceforge.net/projects/bbmap/
 wget -q https://sourceforge.net/projects/bbmap/files/BBMap_37.10.tar.gz/download -O bbmap.tar.gz
-tar xzvf bbmap.tar.gz
+tar xzvf bbmap.tar.gz | head -1
 pushd bbmap
 ln -s $(pwd)/bbmap.sh /usr/local/bin/bbmap.sh
 popd
@@ -78,7 +78,7 @@ bbmap.sh --version
 # But the tagged archive is from 0.11.6 on GitHub.
 # http://www.bioinformatics.babraham.ac.uk/projects/fastqc/
 wget -q https://github.com/s-andrews/FastQC/archive/v0.11.6.tar.gz -O fastqc.tar.gz
-tar xzvf fastqc.tar.gz
+tar xzvf fastqc.tar.gz | head -1
 pushd FastQC-*
 # To fix an build error on JDK 10.
 # https://github.com/s-andrews/FastQC/pull/30
@@ -112,8 +112,9 @@ sed -i 's/_mm_/simde_mm_/g' aligner_*
 sed -i 's/_mm_/simde_mm_/g' sse_util*
 cat /build/patches/bowtie2-2.3.4.1-build-on-arm.patch | patch -p1
 
+uname -m
+export CXXFLAGS="-Wno-deprecated-declarations -Wno-misleading-indentation -Wno-narrowing -Wno-unused-function -Wno-unused-result"
 make install \
-  CXXFLAGS="-Wno-deprecated-declarations -Wno-misleading-indentation -Wno-narrowing -Wno-unused-function -Wno-unused-result" \
   POPCNT_CAPABILITY=0 \
   NO_TBB=1
 popd
