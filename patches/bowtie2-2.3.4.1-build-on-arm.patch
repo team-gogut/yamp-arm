@@ -1,12 +1,3 @@
-diff --git a/.gitmodules b/.gitmodules
-new file mode 100644
-index 0000000..be9e38e
---- /dev/null
-+++ b/.gitmodules
-@@ -0,0 +1,3 @@
-+[submodule "third_party/simde"]
-+	path = third_party/simde
-+	url = https://github.com/nemequ/simde.git
 diff --git a/Makefile b/Makefile
 index 69ce0e9..f17726b 100644
 --- a/Makefile
@@ -81,13 +72,6 @@ index 8edb1a8..c199855 100644
  
  class EList_m128i {
  public:
-diff --git a/third_party/simde b/third_party/simde
-new file mode 160000
-index 0000000..422ed9c
---- /dev/null
-+++ b/third_party/simde
-@@ -0,0 +1 @@
-+Subproject commit 422ed9cc55c88feaa0412e9f1511e10e60fd39ba
 -- 
 2.6.4
 

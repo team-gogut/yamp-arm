@@ -105,12 +105,12 @@ git checkout "v${BOWTIE2_VERSION}"
 # To build on ARM.
 # https://github.com/BenLangmead/bowtie2/pull/216
 # https://gitlab.com/arm-hpc/packages/wikis/packages/bowtie2
+git clone https://github.com/nemequ/simde.git third_party/simde
 sed -i 's/__m/simde__m/g' aligner_*
 sed -i 's/__m/simde__m/g' sse_util*
 sed -i 's/_mm_/simde_mm_/g' aligner_*
 sed -i 's/_mm_/simde_mm_/g' sse_util*
 cat /build/patches/bowtie2-2.3.4.1-build-on-arm.patch | patch -p1
-git submodule update --init --recursive
 
 make install
 popd
