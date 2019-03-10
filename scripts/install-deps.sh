@@ -49,6 +49,7 @@ apt-get install -yq --no-install-suggests --no-install-recommends \
   libtbb-dev \
   mercurial \
   python3-pip \
+  python3-setuptools \
   qiime
 
 java --version
