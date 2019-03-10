@@ -13,15 +13,17 @@ fi
 
 # Retry ca-certificates-java in advance to prevent SIGSEGV when installing jre.
 # https://travis-ci.org/junaruga/ubuntu-arm-java-sigsegv/builds/501915248
-apt-get update -qq && \
-  retry.sh apt-get install -y ca-certificates-java
+apt-get update -qq
+retry.sh apt-get install -y ca-certificates-java
 
 # base repository
 # software-properties-common: for add-apt-repository.
-apt-get update -qq && \
-  apt-get install -yq --no-install-suggests --no-install-recommends \
+apt-get update -qq
+apt-get install -yq --no-install-suggests --no-install-recommends \
   ca-certificates \
+  gcc \
   git \
+  g++ \
   default-jre \
   make \
   patch \
