@@ -18,6 +18,7 @@ retry.sh apt-get install -y ca-certificates-java
 
 # base repository
 # software-properties-common: for add-apt-repository.
+# python and python-*: to install qiime.
 apt-get update -qq
 apt-get install -yq --no-install-suggests --no-install-recommends \
   ca-certificates \
@@ -27,6 +28,7 @@ apt-get install -yq --no-install-suggests --no-install-recommends \
   default-jre \
   make \
   patch \
+  python \
   python3 \
   software-properties-common \
   sudo \
@@ -48,6 +50,8 @@ apt-get install -yq --no-install-suggests --no-install-recommends \
   ant \
   libtbb-dev \
   mercurial \
+  python-pip \
+  python-setuptools \
   python3-pip \
   python3-setuptools \
   qiime
@@ -92,6 +96,21 @@ chmod +x bin/fastqc
 ln -s $(pwd)/bin/fastqc /usr/local/bin/fastqc
 popd
 fastqc --version
+
+# humann2: 0.9.9
+# https://pypi.org/project/humann2/
+pip3 install humann2==0.9.9
+
+# qiime: 1.9.1
+# http://qiime.org/
+# https://pypi.org/project/qiime/
+# qiime does not work on Python3.
+# https://github.com/alesssia/YAMP/issues/11
+pip install qiime==1.9.1
+
+# awscli
+# https://pypi.org/project/awscli/
+pip3 install awscli==1.16.106
 
 # bowtie2: 2.3.4.1
 BOWTIE2_VERSION="2.3.4.1"
@@ -142,17 +161,5 @@ hg clone https://bitbucket.org/biobakery/metaphlan2
 pushd metaphlan2
 ln -s $(pwd)/metaphlan2.py /usr/local/bin/metaphlan2.py
 popd
-
-# humann2: 0.9.9
-# https://pypi.org/project/humann2/
-pip3 install humann2==0.9.9
-
-# qiime: 1.9.1
-# https://pypi.org/project/qiime/
-pip3 install qiime==1.9.1
-
-# awscli
-# https://pypi.org/project/awscli/
-pip3 install awscli==1.16.106
 
 popd
