@@ -50,9 +50,11 @@ apt-get install -yq --no-install-suggests --no-install-recommends \
   ant \
   libtbb-dev \
   mercurial \
+  python-dev \
   python-pip \
   python-setuptools \
   python-wheel \
+  python3-dev \
   python3-pip \
   python3-setuptools \
   python3-wheel \
