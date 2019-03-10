@@ -52,8 +52,10 @@ apt-get install -yq --no-install-suggests --no-install-recommends \
   mercurial \
   python-pip \
   python-setuptools \
+  python-wheel \
   python3-pip \
   python3-setuptools \
+  python3-wheel \
   qiime
 
 java --version
