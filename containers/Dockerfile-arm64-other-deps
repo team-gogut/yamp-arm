@@ -1,0 +1,4 @@
+FROM quay.io/gogut/yamp:arm64-pip-pkgs
+
+COPY scripts/install-deps.sh .
+RUN ./install-deps.sh
