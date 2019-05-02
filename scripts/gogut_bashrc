@@ -1,0 +1,4 @@
+export PS1="[\u]$ "
+
+alias ls='ls -AFG --color'
+alias ll='l -l'

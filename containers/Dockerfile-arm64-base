@@ -1,0 +1,10 @@
+# base image
+# https://hub.docker.com/r/multiarch/ubuntu-debootstrap/tags/
+FROM multiarch/ubuntu-debootstrap:arm64-bionic AS base
+
+ENV PATH "/usr/local/bin:${PATH}"
+WORKDIR /build
+RUN uname -a
+COPY patches patches
+COPY scripts/install-deb-pkgs.sh .
+RUN ./install-deb-pkgs.sh

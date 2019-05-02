@@ -1,0 +1,6 @@
+FROM quay.io/gogut/yamp:arm64-base AS builder
+COPY scripts/install-bowtie2.sh .
+RUN ./install-bowtie2.sh
+
+FROM quay.io/gogut/yamp:arm64-base
+COPY --from=builder /usr/local/bin/bowtie2* /usr/local/bin/
