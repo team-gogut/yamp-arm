@@ -14,6 +14,39 @@ Install make command if it is not installed.
 $ brew install make
 ```
 
+## Get this repository source on local.
+
+Download the repository source by `git clone`.
+
+```
+$ git clone git@github.com:team-gogut/yamp-arm.git
+
+$ cd yamp-arm
+```
+
+This repository has sub module `YAMP`.
+Download the sub module by `git submodule`.
+
+As initial status, YAMP directory is empty.
+
+```
+$ git submodule
+-51591221f0374d0e90ae3755dea0ff5bff595f05 YAMP
+```
+
+Run below command to download.
+
+```
+$ git submodule update --init --recursive
+```
+
+You see there are files under `YAMP` directory.
+
+```
+$ git submodule
+ 51591221f0374d0e90ae3755dea0ff5bff595f05 YAMP (heads/master)
+```
+
 ## How to start
 
 1. Run docker daemon
@@ -32,7 +65,7 @@ $ make qemu
 $ make login
 ```
 
-3. When exit the container, type "exit".
+3. When exit the container, type `exit`.
 
 ```
 $ make login
