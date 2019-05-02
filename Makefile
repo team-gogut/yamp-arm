@@ -53,8 +53,8 @@ build-dev :
 .PHONY : build-dev
 
 push :
-	# docker push "$(TAG)-base"
-	# docker push "$(TAG)-bowtie2"
+	docker push "$(TAG)-base"
+	docker push "$(TAG)-bowtie2"
 	docker push "$(TAG)-pip-pkgs"
 	docker push "$(TAG)-other-deps"
 	docker push "$(TAG)"
@@ -73,3 +73,7 @@ login-root :
 login :
 	docker run -it -t -u gogut -w /home/gogut -v "$(CWD)/work:/home/gogut/work" "$(TAG)-dev"
 .PHONY : login
+
+clean :
+	docker system prune -a -f
+.PHONY : clean
