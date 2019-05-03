@@ -1,5 +1,5 @@
 ARCH ?= arm64
-TAG = "quay.io/gogut/yamp:arm64"
+TAG = quay.io/gogut/yamp:arm64
 CWD = $(shell pwd)
 
 default : help
@@ -61,17 +61,26 @@ push :
 	docker push "$(TAG)-dev"
 .PHONY : push
 
+test-env :
+	docker run --rm -t -u gogut -w /home/gogut -v "$(CWD)/tests:/home/gogut/tests" "$(TAG)-dev" uname -a
+	docker run --rm -t -u gogut -w /home/gogut -v "$(CWD)/tests:/home/gogut/tests" "$(TAG)-dev" pwd
+	docker run --rm -t -u gogut -w /home/gogut -v "$(CWD)/tests:/home/gogut/tests" "$(TAG)-dev" ls -l
+	docker run --rm -t -u gogut -w /home/gogut -v "$(CWD)/tests:/home/gogut/tests" "$(TAG)-dev" ls -lR
+	docker run --rm -t -u gogut -w /home/gogut -v "$(CWD)/tests:/home/gogut/tests" "$(TAG)-dev" ls -l /home/gogut/tests
+	docker run --rm -t -u gogut -w /home/gogut -v "$(CWD)/tests:/home/gogut/tests" "$(TAG)-dev" ls -l tests
+.PHONY : test-env
+
 test :
-	docker run --rm -t "$(TAG)" ./sample_test.sh
+	docker run --rm -t -u gogut -w /home/gogut -v "$(CWD)/tests:/home/gogut/tests" "$(TAG)-dev" tests/sample_test.sh
 .PHONY : test
 
 # Run the container interactively.
 login-root :
-	docker run -it -t -u root -w /build "$(TAG)-dev"
+	docker run -it -u root -w /build "$(TAG)-dev"
 .PHONY : login-root
 
 login :
-	docker run -it -t -u gogut -w /home/gogut -v "$(CWD)/work:/home/gogut/work" "$(TAG)-dev"
+	docker run -it -u gogut -w /home/gogut -v "$(CWD)/work:/home/gogut/work" "$(TAG)-dev"
 .PHONY : login
 
 clean :
