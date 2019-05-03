@@ -59,13 +59,26 @@ In case of Mac OSX, run "Applications > Docker > Docker Quickstart Terminal".
 $ make qemu
 ```
 
-3. Login to the development container by gogut user.
+3. Login to the development container by gogut user. It takes a few minutes for only first time, downloading the container image to local.
 
 ```
 $ make login
 ```
 
-3. When exit the container, type `exit`.
+4. The environment is like this. **work directory is shared on your host os's work directory `yamp-arm/work`. Put necessary files there**. Please take care the files except `work` directory is **NOT** saved when logout the container.
+
+```
+[gogut]$ whoami
+gogut
+
+[gogut]$ pwd
+/home/gogut
+
+[gogut]$ ls
+.bash_logout  .bashrc  .nextflow/  .profile  work/
+```
+
+5. When exit the container, type `exit`.
 
 ```
 $ make login
@@ -75,4 +88,17 @@ Linux 99152f218689 4.4.74-boot2docker #1 SMP Mon Jun 26 18:01:14 UTC 2017 aarch6
 [gogut]$ exit
 exit
 $
+```
+
+6. Used containers' size is very big (around 1.4GB). When you want to remove those, type `make clean` to remove all the containers on local.
+
+```
+$ docker image ls
+REPOSITORY                   TAG                 IMAGE ID            CREATED             SIZE
+quay.io/gogut/yamp           arm64-dev           31188244bdb0        About an hour ago   1.39GB
+multiarch/qemu-user-static   register            9f0335919cf3        6 days ago          1.23MB
+```
+
+```
+$ make clean
 ```
