@@ -1,18 +1,11 @@
-language: generic
-dist: trusty
+dist: xenial
+language: bash
 services: docker
-sudo: false
 matrix:
   include:
     - name: x86_64-linux
     - name: aarch64-linux
-      sudo: required
-      env:
-        - GOGUT_INSTALL_DEPS=1
-      install: make
-      script: make test
-  allow_failures:
-    - name: aarch64-linux
+      script: make qemu test
   fast_finish: true
 before_script:
   # Show environment.
@@ -20,4 +13,4 @@ before_script:
   - id
   - pwd
 script:
-  - ./sample_test.sh
+  - tests/sample_test.sh

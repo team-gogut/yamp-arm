@@ -2,13 +2,16 @@ language: none
 matrix:
   include:
     - nodePool: shippable_shared_aarch64
-      env: GOGUT_INSTALL_DEPS=1
 build:
   ci:
     # Show environment.
     - uname -a
     - id
     - pwd
+    - docker --version
+    - docker info
     # Test.
-    - make build
+    - ls -l
+    - ls -l tests/
+    - make test-env
     - make test
