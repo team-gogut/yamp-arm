@@ -1,14 +1,25 @@
-# How to prepare development environment
+# How to start a development environment
 
-## Prepare required softwares
+## Quick start
 
-### docker
+Install `docker` and `make`, then run
 
-Install docker or the compatible software.
+```
+$ make qemu
+$ make login
+```
+
+## Instruction
+
+### Install required softwares
+
+#### docker
+
+Install `docker` or a compatible software.
 
 Docker: https://docs.docker.com/
 
-### make
+#### make
 
 Install `make` command if it is not installed.
 
@@ -22,7 +33,13 @@ Windows
 
 [This?](https://stackoverflow.com/questions/32127524/how-to-install-and-use-make-in-windows)
 
-## Download a source code
+Linux (Ubuntu)
+
+```
+$ apt-get install make
+```
+
+### Download a source code
 
 Download the repository source code by `git clone`.
 
@@ -45,7 +62,7 @@ $ git submodule update --init --recursive
 
 You see there are files under `YAMP` directory.
 
-## How to start
+### Start the development environment
 
 Run docker daemon
 
@@ -80,6 +97,8 @@ Linux 99152f218689 4.4.74-boot2docker #1 SMP Mon Jun 26 18:01:14 UTC 2017 aarch6
 .bash_logout  .bashrc  .nextflow/  .profile  work/
 ```
 
+### Stop the development environment
+
 When exit the container, type `exit`.
 
 ```
@@ -87,6 +106,8 @@ When exit the container, type `exit`.
 exit
 $
 ```
+
+### Clean the development enviornment
 
 Used containers' file size is very big (around 1.4GB). When you want to remove those, type `make clean` to remove all the container image.
 
