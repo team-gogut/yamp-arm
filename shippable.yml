@@ -11,7 +11,5 @@ build:
     - docker --version
     - docker info
     # Test.
-    - ls -l
-    - ls -l tests/
-    - make test-env
+    # - make test-env
     - make test

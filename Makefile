@@ -71,7 +71,11 @@ test-env :
 .PHONY : test-env
 
 test :
-	docker run --rm -t -u gogut -w /home/gogut -v "$(CWD)/tests:/home/gogut/tests" "$(TAG)-dev" tests/sample_test.sh
+	# Use testing Dockerfile-test for the Shippable CI issue.
+	# https://github.com/Shippable/support/issues/4824
+	# docker run --rm -t -u gogut -w /home/gogut -v "$(CWD)/tests:/home/gogut/tests" "$(TAG)-dev" tests/sample_test.sh
+	docker build --rm -t "$(TAG)-test" --build-arg IMAGE=$(TAG)-dev -f containers/Dockerfile-test .
+	docker run --rm -t -u gogut "$(TAG)-test" tests/sample_test.sh
 .PHONY : test
 
 # Run the container interactively.
