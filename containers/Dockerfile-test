@@ -1,0 +1,7 @@
+ARG IMAGE
+FROM ${IMAGE}
+
+USER gogut
+WORKDIR /home/gogut
+COPY . .
+CMD ["bash"]
