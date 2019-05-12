@@ -44,7 +44,7 @@ $ apt-get install make
 Download the repository source code by `git clone`.
 
 ```
-$ git clone git@github.com:team-gogut/yamp-arm.git
+$ git clone https://github.com/team-gogut/yamp-arm.git
 
 $ cd yamp-arm
 ```
