@@ -19,6 +19,9 @@ Install `docker` or a compatible software.
 
 Docker: https://docs.docker.com/
 
+* Linux (Ubuntu): [Install Docker CE From Docker web site.](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
+  Please note that [default docker package in Ubuntu](https://packages.ubuntu.com/bionic/docker) is old.
+
 #### make
 
 Install `make` command if it is not installed.
@@ -68,6 +71,7 @@ Run docker daemon
 
 * Mac: Run "Applications > Docker > Docker Quickstart Terminal".
 * Windows: I am not sure.
+* Linux(Ubuntu): `$ sudo systemctl start docker` or `$ sudo service docker start`
 
 Run QEMU container to run arm64 container on it on the opened terminal. This operation is only for first time.
 
