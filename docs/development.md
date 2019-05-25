@@ -70,7 +70,8 @@ You see there are files under `YAMP` directory.
 Run docker daemon
 
 * Mac: Run "Applications > Docker > Docker Quickstart Terminal".
-* Windows: I am not sure.
+* Windows: Run "Windows key > Docker Desktope".
+* Windows (WSL): [Here](https://nickjanetakis.com/blog/setting-up-docker-for-windows-and-wsl-to-work-flawlessly).
 * Linux(Ubuntu): `$ sudo systemctl start docker` or `$ sudo service docker start`
 
 Run QEMU container to run arm64 container on it on the opened terminal. This operation is only for first time.
