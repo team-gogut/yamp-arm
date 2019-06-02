@@ -86,7 +86,7 @@ Login to the development container by gogut user on the opened terminal. It take
 $ make login
 ```
 
-The environment is like this. **work directory is shared on your host os's work directory `yamp-arm/work`. Put necessary files there**. Please take care the files except `work` directory is **NOT** saved when logout the container.
+The environment is like this. **`yamp-arm` directory is shared on your host os's `yamp-arm` directory. Put necessary files there**. Please take care the files except `yamp-arm` directory is **NOT** saved when logout the container.
 
 ```
 [gogut]$ whoami
@@ -99,7 +99,7 @@ Linux 99152f218689 4.4.74-boot2docker #1 SMP Mon Jun 26 18:01:14 UTC 2017 aarch6
 /home/gogut
 
 [gogut]$ ls
-.bash_logout  .bashrc  .nextflow/  .profile  work/
+.bash_logout  .bashrc  .nextflow/  .profile  yamp-arm/
 ```
 
 ### Stop the development environment
