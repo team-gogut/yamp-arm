@@ -1,4 +1,0 @@
-FROM quay.io/gogut/yamp:arm64-base
-
-COPY scripts/install-pip-pkgs.sh .
-RUN ./install-pip-pkgs.sh

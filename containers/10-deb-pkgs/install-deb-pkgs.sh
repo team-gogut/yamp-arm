@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ev
+set -evo pipefail
 
 # Base repository
 # software-properties-common: for add-apt-repository.

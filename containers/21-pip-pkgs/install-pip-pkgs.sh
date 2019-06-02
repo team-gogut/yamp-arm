@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ev
+set -evo pipefail
 
 # humann2: 0.9.9
 # https://pypi.org/project/humann2/

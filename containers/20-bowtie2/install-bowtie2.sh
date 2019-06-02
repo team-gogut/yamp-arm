@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ev
+set -evo pipefail
 
 pushd /usr/local/src
 
@@ -20,7 +20,7 @@ sed -i 's/__m/simde__m/g' aligner_*
 sed -i 's/__m/simde__m/g' sse_util*
 sed -i 's/_mm_/simde_mm_/g' aligner_*
 sed -i 's/_mm_/simde_mm_/g' sse_util*
-cat /build/patches/bowtie2-2.3.4.1-build-on-arm.patch | patch -p1
+cat /build/bowtie2-2.3.4.1-build-on-arm.patch | patch -p1
 
 uname -m
 export CXXFLAGS="-Wno-deprecated-declarations -Wno-misleading-indentation -Wno-narrowing -Wno-unused-function -Wno-unused-result"

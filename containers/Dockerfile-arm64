@@ -1,3 +1,0 @@
-FROM quay.io/gogut/yamp:arm64-other-deps
-
-COPY --from=quay.io/gogut/yamp:arm64-bowtie2 /usr/local/bin/bowtie2* /usr/local/bin/
