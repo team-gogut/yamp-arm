@@ -84,7 +84,7 @@ login-root :
 .PHONY : login-root
 
 login :
-	docker run -it -u gogut -w /home/gogut -v "$(CWD)/work:/home/gogut/work" "$(TAG)-dev"
+	docker run -it -u gogut -w /home/gogut -v "$(CWD):/home/gogut" "$(TAG)-dev"
 .PHONY : login
 
 clean :
