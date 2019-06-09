@@ -8,6 +8,12 @@ CONTAINER_SERVER = quay.io
 IMAGE_PREFIX = $(CONTAINER_SERVER)/gogut/yamp:$(ARCH)-$(OS)-$(OS_VERSION)-
 CWD = $(shell pwd)
 
+ifeq ($(OS), ubuntu)
+	TARGETS = 10-deb-pkgs 20-bowtie2 21-pip-pkgs 22-other-deps 30-prod 40-dev
+else
+	TARGETS = 10-rpm-pkgs 20-bowtie2 21-pip-pkgs 22-other-deps 30-prod 40-dev
+endif
+
 default : help
 .PHONY : default
 
@@ -21,28 +27,21 @@ help :
 	@echo "  login-root Login to the container by root user"
 .PHONY : help
 
+qemu-build-push : container-login qemu pull build push
+.PHONY : qemu-build-push
+
 qemu :
 	docker run --rm --privileged multiarch/qemu-user-static:register --reset
 .PHONY : qemu
 
 pull :
-	docker pull "$(IMAGE_PREFIX)10-deb-pkgs" || true
-	docker pull "$(IMAGE_PREFIX)10-rpm-pkgs" || true
-	docker pull "$(IMAGE_PREFIX)20-bowtie2" || true
-	docker pull "$(IMAGE_PREFIX)21-pip-pkgs" || true
-	docker pull "$(IMAGE_PREFIX)22-other-deps" || true
-	docker pull "$(IMAGE_PREFIX)30-prod" || true
-	docker pull "$(IMAGE_PREFIX)40-dev" || true
+	for target in $(TARGETS); do \
+		docker pull "$(IMAGE_PREFIX)$$target" || true; \
+	done
 .PHONY : pull
 
-build : build-$(OS)
-.PHONY : build-$(OS)
-
-build-ubuntu : 10-deb-pkgs 20-bowtie2 21-pip-pkgs 22-other-deps 30-prod 40-dev
-.PHONY : build-ubuntu
-
-build-rhel : 10-rpm-pkgs 20-bowtie2 21-pip-pkgs 22-other-deps 30-prod 40-dev
-.PHONY : build-rhel
+build : $(TARGETS)
+.PHONY : build
 
 10-deb-pkgs :
 	docker build --rm \
